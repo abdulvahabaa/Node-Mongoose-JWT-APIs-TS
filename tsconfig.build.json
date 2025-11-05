@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "removeComments": true,
+    "sourceMap": false,
+    "declaration": false,
+    "noEmitOnError": true,
+    "preserveConstEnums": true,
+    "isolatedModules": true,
+    "noUncheckedIndexedAccess": true,
+    "allowJs": false
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "src/**/*.dev.ts",
+    "src/**/*.mock.ts"
+  ]
+}
