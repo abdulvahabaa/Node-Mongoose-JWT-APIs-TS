@@ -3,9 +3,11 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
+import compression from 'compression';
 import connectDB from './config/db.js';
 import userRoutes from './routes/user.routes.js';
 import { errorHandler } from './middleware/error.middleware.js';
+import { apiLimiter, authLimiter } from './middleware/rateLimiter.middleware.js';
 
 dotenv.config();
 
@@ -18,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
+
+app.use(compression());
+app.use(apiLimiter);
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));

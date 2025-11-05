@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "argon2": "^0.44.0",
+    "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
+    "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
     "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
@@ -24,6 +26,7 @@
     "morgan": "^1.10.1"
   },
   "devDependencies": {
+    "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^4.17.25",
     "@types/jsonwebtoken": "^9.0.10",
