@@ -5,9 +5,10 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import connectDB from './config/db.js';
-import userRoutes from './routes/user.routes.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { apiLimiter, authLimiter } from './middleware/rateLimiter.middleware.js';
+import userRoutes from './routes/user.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV !== 'production') {
 await connectDB();
 
 // Routes
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/users', userRoutes);
 
 // Error Middleware

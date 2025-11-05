@@ -1,18 +1,38 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import argon2 from 'argon2';
 
-export interface IUser extends Document {
-  name: string;
+export interface IUser {
+  username: string;
   email: string;
-  age?: number;
+  password: string;
+  role: string;
+  age?: number | null;
 }
 
-const userSchema = new Schema<IUser>(
+export interface IUserDocument extends IUser, Document {
+  matchPassword(candidatePassword: string): Promise<boolean>;
+}
+
+const userSchema = new Schema<IUserDocument>(
   {
-    name: { type: String, required: true },
+    username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    age: { type: Number, default: 0 },
+    password: { type: String, required: true },
+    role: { type: String, default: 'user' },
+    age: { type: Number, default: null },
   },
   { timestamps: true },
 );
 
-export const User = mongoose.model<IUser>('User', userSchema);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await argon2.hash(this.password);
+  next();
+});
+
+userSchema.methods.matchPassword = async function (candidatePassword: string): Promise<boolean> {
+  return argon2.verify(this.password, candidatePassword);
+};
+
+const User: Model<IUserDocument> = mongoose.model<IUserDocument>('User', userSchema);
+export default User;
