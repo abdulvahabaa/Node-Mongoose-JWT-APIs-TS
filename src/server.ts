@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import { connectDB } from './config/db.js';
+import connectDB from './config/db.js';
 import userRoutes from './routes/user.routes.js';
 import { errorHandler } from './middleware/error.middleware.js';
 
