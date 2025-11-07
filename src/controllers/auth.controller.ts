@@ -70,7 +70,7 @@ export const loginUser = asyncHandler(
     }
 
     const token = generateToken({
-      id: user._id.toString(),
+      id: (user._id as any).toString(),
       name: user.username,
       admin: user.role === 'admin',
     });
