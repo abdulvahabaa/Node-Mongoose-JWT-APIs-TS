@@ -10,7 +10,13 @@
     "start": "node dist/server.js",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --write src"
+    "format": "prettier --write src",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up -d",
+    "docker:prod": "docker-compose -f docker-compose.yml up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:build": "docker-compose build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "argon2": "^0.44.0",
@@ -23,7 +29,8 @@
     "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.3",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "redis": "^5.9.0"
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",

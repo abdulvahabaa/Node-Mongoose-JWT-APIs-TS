@@ -1,9 +1,22 @@
 import { Router } from 'express';
-import { getUsers, createUser } from '../controllers/user.controller.js';
+import {
+  getUsers,
+  createUser,
+  getUserById,
+  deleteUser,
+  updateUser,
+} from '../controllers/user.controller.js';
 
-const router = Router();
+const userRoutes = Router({ mergeParams: true });
 
-router.get('/', getUsers);
-router.post('/', createUser);
+userRoutes.post('/', createUser);
 
-export default router;
+userRoutes.get('/', getUsers);
+
+userRoutes.get('/:id', getUserById);
+
+userRoutes.patch('/:id', updateUser);
+
+userRoutes.post('/:id', deleteUser);
+
+export default userRoutes;

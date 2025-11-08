@@ -1,21 +1,41 @@
 import { Request, Response } from 'express';
-import User from '../models/user.model.js';
+import { userService } from '../services/user.service.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { ApiError } from '../utils/ApiError.js';
 
-export const getUsers = async (req: Request, res: Response) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: (error as Error).message });
-  }
-};
+interface IdParam {
+  id: string;
+}
 
-export const createUser = async (req: Request, res: Response) => {
-  try {
-    const { name, email, age } = req.body;
-    const user = await User.create({ name, email, age });
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ message: (error as Error).message });
-  }
-};
+export const getUsers = asyncHandler(async (req: Request, res: Response) => {
+  const users = await userService.getAllUsers();
+  res.status(200).json(users);
+});
+
+export const createUser = asyncHandler(async (req: Request, res: Response) => {
+  const { username, email, password, role, age } = req.body;
+  const newUser = await userService.createUser({ username, email, password, role, age });
+  res.status(201).json(newUser);
+});
+
+export const getUserById = asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) throw new ApiError('User ID is required', 400);
+  const user = await userService.getUserById(id);
+  res.status(200).json(user);
+});
+
+export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) throw new ApiError('User ID is required', 400);
+  const deletedUser = await userService.deleteUser(id);
+  res.status(200).json(deletedUser);
+});
+
+export const updateUser = asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  if (!id) throw new ApiError('User ID is required', 400);
+  const { username, email, password, role, age } = req.body;
+  const updatedUser = await userService.updateUser(id, { username, email, password, role, age });
+  res.status(200).json(updatedUser);
+});
