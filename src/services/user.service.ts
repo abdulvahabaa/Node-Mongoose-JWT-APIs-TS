@@ -1,5 +1,5 @@
 import User from '../models/user.model.js';
-import { IUser } from '../models/user.model.js';
+import type { IUser } from '../models/user.model.js';
 import { ApiError } from '../utils/ApiError.js';
 
 export const userService = {

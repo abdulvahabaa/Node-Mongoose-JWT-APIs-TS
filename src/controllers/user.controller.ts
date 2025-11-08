@@ -1,11 +1,7 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { userService } from '../services/user.service.js';
 import asyncHandler from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
-
-interface IdParam {
-  id: string;
-}
 
 export const getUsers = asyncHandler(async (req: Request, res: Response) => {
   const users = await userService.getAllUsers();

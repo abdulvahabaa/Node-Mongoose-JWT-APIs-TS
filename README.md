@@ -136,25 +136,76 @@ npm start
 ## 📁 Project Structure
 
 ```
-src/
-├── config/
-│   ├── db.ts              # MongoDB connection
-│   └── redis.ts           # Redis client & utilities
-├── middleware/
-│   ├── auth.middleware.ts
-│   ├── cache.middleware.ts
-│   ├── error.middleware.ts
-│   └── redisRateLimiter.middleware.ts
-├── models/
-│   └── user.model.ts
-├── routes/
-│   ├── auth.routes.ts
-│   └── user.routes.ts
-├── services/
-│   └── cache.service.ts   # Redis cache service
-├── types/
-│   └── express.d.ts
-└── server.ts              # Application entry point
+📦 NODE-MONGOOSE-JWT-APIS-TS
+│
+├── .dockerignore
+├── .eslintignore
+├── .env
+├── .gitignore
+├── .prettierrc
+├── LICENSE
+├── docker-compose.yml
+├── docker-compose.dev.yml
+├── Dockerfile
+├── eslint.config.js
+├── package.json
+├── package-lock.json
+├── README.md
+├── tsconfig.json
+├── tsconfig.build.json
+│
+├── .vscode/
+│   └── settings.json
+│
+├── logs/                           # Runtime logs (ignored by Git)
+│
+├── src/
+│   ├── server.ts                   # Application entry point
+│   │
+│   ├── config/                     # Configuration files
+│   │   ├── db.ts                   # MongoDB connection setup
+│   │   └── redis.ts                # Redis client setup
+│   │
+│   ├── controllers/                # Route controllers
+│   │   ├── auth.controller.ts
+│   │   └── user.controller.ts
+│   │
+│   ├── middleware/                 # Custom middlewares
+│   │   ├── auth.middleware.ts
+│   │   ├── cache.middleware.ts
+│   │   ├── error.middleware.ts
+│   │   └── redisRateLimiter.middleware.ts
+│   │
+│   ├── models/                     # Database models
+│   │   └── user.model.ts
+│   │
+│   ├── routes/                     # Express route definitions
+│   │   ├── auth.routes.ts
+│   │   └── user.routes.ts
+│   │
+│   ├── services/                   # Business logic layer
+│   │   ├── auth.service.ts
+│   │   ├── cache.service.ts
+│   │   └── user.service.ts
+│   │
+│   ├── types/                      # Type definitions
+│   │   └── express.d.ts
+│   │
+│   ├── utils/                      # Reusable utility functions
+│   │   ├── ApiError.ts
+│   │   ├── asyncHandler.ts
+│   │   ├── generateToken.ts
+│   │   └── redisUtils.ts
+│   │
+│   └── validations/                # Joi/Zod schema validations
+│       ├── auth.validation.ts
+│       └── user.validation.ts
+│
+└── tests/                          # Jest or Mocha test cases
+    ├── auth.test.ts
+    └── user.test.ts
+
+
 ```
 
 ## 🔑 Redis Usage Examples
