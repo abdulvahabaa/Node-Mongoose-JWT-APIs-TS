@@ -10,6 +10,7 @@ export interface IUser {
 }
 
 export interface IUserDocument extends IUser, Document {
+  _id: mongoose.Types.ObjectId;
   matchPassword(candidatePassword: string): Promise<boolean>;
 }
 

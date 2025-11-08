@@ -131,7 +131,7 @@ export const redisUtils = {
   },
 
   // Set expiration
-  async expire(key: string, seconds: number): Promise<boolean> {
+  async expire(key: string, seconds: number): Promise<number> {
     const client = redisClient.getClient();
     return await client.expire(key, seconds);
   },
