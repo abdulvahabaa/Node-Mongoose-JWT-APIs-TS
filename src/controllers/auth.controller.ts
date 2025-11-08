@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import asyncHandler from '../middleware/asyncHandler.js';
+import asyncHandler from '../utils/asyncHandler.js';
 import { authService } from '../services/auth.service.js';
 
 // 🧩 Register
