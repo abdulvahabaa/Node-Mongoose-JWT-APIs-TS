@@ -30,4 +30,12 @@ export const userService = {
     }
     return deletedUser;
   },
+
+  async updateUser(id: string, data: Partial<IUser>) {
+    const updatedUser = await User.findByIdAndUpdate(id, data, { new: true });
+    if (!updatedUser) {
+      throw new ApiError('User not found', 404);
+    }
+    return updatedUser;
+  },
 };
