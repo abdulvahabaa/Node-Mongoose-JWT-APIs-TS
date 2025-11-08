@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import asyncHandler from '../utils/asyncHandler.js';
 import { authService } from '../services/auth.service.js';
+import { ApiError } from '../utils/ApiError.js';
 
 // 🧩 Register
 export const registerUser = asyncHandler(async (req: Request, res: Response) => {
@@ -23,7 +24,8 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 // 🧩 Logout
 export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
   const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(400).json({ message: 'Token required' });
+
+  if (!token) throw new ApiError('Token required', 400);
 
   await authService.logoutUser(token);
   res.status(200).json({ message: 'Logged out successfully' });
