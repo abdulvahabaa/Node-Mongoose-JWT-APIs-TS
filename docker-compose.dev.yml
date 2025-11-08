@@ -34,7 +34,7 @@ services:
     container_name: redis-dev
     restart: unless-stopped
     ports:
-      - '6379:6379'
+      - '6380:6379'
     command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
     volumes:
       - redis_data_dev:/data
