@@ -1,4 +1,4 @@
-import { redisUtils } from '../config/redis.js';
+import { redisUtils } from '../utils/redisUtils.js';
 
 export class CacheService {
   private defaultTTL: number;
