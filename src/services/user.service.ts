@@ -10,7 +10,7 @@ export const userService = {
   async createUser(data: IUser) {
     const existingUser = await User.findOne({ email: data.email });
     if (existingUser) {
-      throw new ApiError('Email already exists', 409);
+      throw ApiError.conflict('Email already exists');
     }
     return User.create(data);
   },
@@ -18,7 +18,7 @@ export const userService = {
   async getUserById(id: string) {
     const user = await User.findById(id).select('-password');
     if (!user) {
-      throw new ApiError('User not found', 404);
+      throw ApiError.notFound('User not found');
     }
     return user;
   },
@@ -26,7 +26,7 @@ export const userService = {
   async deleteUser(id: string) {
     const deletedUser = await User.findByIdAndDelete(id);
     if (!deletedUser) {
-      throw new ApiError('User not found', 404);
+      throw ApiError.notFound('User not found');
     }
     return deletedUser;
   },
@@ -34,7 +34,7 @@ export const userService = {
   async updateUser(id: string, data: Partial<IUser>) {
     const updatedUser = await User.findByIdAndUpdate(id, data, { new: true });
     if (!updatedUser) {
-      throw new ApiError('User not found', 404);
+      throw ApiError.notFound('User not found');
     }
     return updatedUser;
   },

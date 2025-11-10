@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import asyncHandler from '../utils/asyncHandler.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
 import { authService } from '../services/auth.service.js';
 import { ApiError } from '../utils/ApiError.js';
 
@@ -25,7 +25,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
   const token = req.headers.authorization?.split(' ')[1];
 
-  if (!token) throw new ApiError('Token required', 400);
+  if (!token) throw ApiError.badRequest('Token required');
 
   await authService.logoutUser(token);
   res.status(200).json({ message: 'Logged out successfully' });

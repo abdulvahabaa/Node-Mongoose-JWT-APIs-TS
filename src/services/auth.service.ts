@@ -16,13 +16,13 @@ export class AuthService {
     // Check cache first
     const cachedUser = await cacheService.getCachedUser(email);
     if (cachedUser) {
-      throw new ApiError('User already exists (cached)', 409);
+      throw ApiError.conflict('User already exists (cached)');
     }
 
     // Check DB
     const userExists = await User.findOne({ email });
     if (userExists) {
-      throw new ApiError('User already exists', 409);
+      throw ApiError.conflict('User already exists');
     }
 
     // Create new user
@@ -43,7 +43,7 @@ export class AuthService {
   async loginUser(email: string, password: string) {
     const user = await User.findOne({ email });
     if (!user || !(await user.matchPassword(password))) {
-      throw new ApiError('Invalid credentials', 401);
+      throw ApiError.unauthorized('Invalid credentials');
     }
 
     const token = generateToken({
